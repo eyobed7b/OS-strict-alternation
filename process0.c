@@ -15,10 +15,10 @@ int main(){
 
 
 
-key_t key = ftok("f1.txt", 65); // 
-int shmid = shmget(key, 1024, 0666|IPC_CREAT);
-char *turn = (char*)shmat(shmid, NULL, 0);
-strcpy(turn,"0");
+key_t key = ftok("f1.txt", 65); // creating key for the shared memory using ftok
+int shmid = shmget(key, 1024, 0666|IPC_CREAT);  //geting the shared memory
+char *turn = (char*)shmat(shmid, NULL, 0); // attaching the shared memory
+strcpy(turn,"0"); // initialy making turn to 0
 
    
   
@@ -32,18 +32,18 @@ strcpy(turn,"0");
    {
       /* wait */
    }sleep(1);
-   printf(". This is process 0 i am in critical region \n");
+   printf(". This is process 0 i am in critical region \n"); //critical region 
     
   
-   strcpy(turn,"1");
+   strcpy(turn,"1");  // changing the turn value to 1
    
   }
   
  
 
 
-    //dt sh
-     shmdt(turn);
+    
+     shmdt(turn); // detaching the shared memory
    return 0; 
 }
 
